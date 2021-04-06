@@ -205,9 +205,9 @@ res.hcpc$desc.var$quanti
 
 D'après les résultats ci-dessus, on peut voir que :
 
-Les variables $hcpe\_33$, $p\_33$, Viol et Agression sont associées de façon plus significative au cluster 1. Par exemple, la valeur moyenne de la variable $hcpe\_33$ dans la cluster $1$ est de $49413.79$ kwh, ce qui est inférieur à sa moyenne générale ($220042.03$ kwh) pour tous les clusters. Par conséquent, on peut conclure que la cluster $1$ est caractérisée par une faible consommation anuelle d'électricité par rapport à tous les clusters.
+Les variables $hcpe\_33$, $p\_33$ sont associées de façon plus significative au cluster 1. Par exemple, la valeur moyenne de la variable $hcpe\_33$ dans la cluster $1$ est de $49413.79$ kwh, ce qui est inférieur à sa moyenne générale ($220042.03$ kwh) pour tous les clusters. Par conséquent, on peut conclure que la cluster $1$ est caractérisée par une faible consommation anuelle d'électricité par rapport à tous les clusters.
 
-Les variables $P\_16$, Viol et Agression sont associées de façon plus significative au cluster 2. Par exemple, la valeur moyenne de la variable $P\_16$ dans la cluster $1$ est de $39.67$ kwh, ce qui est inférieur à sa moyenne générale ($152.58$ kwh) pour tous les clusters. Par conséquent, on peut conclure que la cluster $2$ est caractérisée par une faible consommation anuelle d'électricité par rapport à tous les clusters.
+Les variables $P\_16$est associée de façon plus significative au cluster 2. Sa valeur moyenne est de $39.67$ kwh, ce qui est inférieur à sa moyenne générale ($152.58$ kwh) pour tous les clusters. 
 
 * De même, pour afficher les dimensions principales qui sont les plus associées aux clusters :
 
