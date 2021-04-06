@@ -349,7 +349,7 @@ code span.ot { color: #007020; }
 <a class="sourceLine" id="cb1-9" title="9"><span class="kw">library</span>(kableExtra)</a></code></pre></div>
 <div id="importer-les-données" class="section level1">
 <h1><strong>Importer les données </strong></h1>
-<p>Le travail effectué néccessite d’importer les données de Consommation annuelle d’électricité. C’est un ensemble de 6 fichiers excel qui contient des données sur des variables tant qualitative que quantitative. Nous avons lors de l’étape de traitement extrait les données en les sauvegardant dans un seul fichier txt dénommé <em>DTRawYear</em>. Pour cette partie, nous allons importé dans R les données afin d’effectuer les différentes analyses qui suivront :</p>
+<p>Le travail effectué nécessite d’importer les données de Consommation annuelle d’électricité. C’est un ensemble de 6 fichiers excel qui contient des données sur des variables tant qualitatives que quantitatives. Nous avons lors de l’étape de traitement extrait les données en les sauvegardant dans un seul fichier txt dénommé <strong>DTRawYear</strong>. Pour cette partie, nous allons importer dans <strong>R</strong> les données afin d’effectuer les différentes analyses qui suivront :</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">DTRawYear &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;~/Hackathon2/DTRawYear.txt&quot;</span>, <span class="dt">quote=</span><span class="st">&quot;</span><span class="ch">\&quot;</span><span class="st">&quot;</span>, <span class="dt">comment.char=</span><span class="st">&quot;&quot;</span>)</a></code></pre></div>
 <p>Nous pouvons voir un ensemble de <span class="math inline">\(38\)</span> variables sur nos données :</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">colnames</span>(DTRawYear)</a></code></pre></div>
@@ -413,12 +413,12 @@ code span.ot { color: #007020; }
 <li><span class="math inline">\(hh\_ejp\_35\)</span> : Heures Hiver</li>
 <li><span class="math inline">\(p\_ejp\_36\)</span> : Hiver Pointe Mobile</li>
 </ul>
-<p>Les mesurent de consommation pour les variables “<strong>Heures Hiver</strong>” et “<strong>Hiver Pointe Mobile</strong>” selon les 3 catégories n’ont pas été mesurées. Cela correspond donc à <span class="math inline">\(100\%\)</span> de données manquantes pour 6 variables : <span class="math inline">\(hh\_ejp\_21, p\_ejp\_22, hh\_ejp\_28, p\_ejp\_29, hh\_ejp\_35 et p\_ejp\_36\)</span>.</p>
+<p>Les mesures de consommation pour les variables “<strong>Heures Hiver</strong>” et “<strong>Hiver Pointe Mobile</strong>” selon les 3 catégories n’ont pas été mesurées. Cela correspond donc à <span class="math inline">\(100\%\)</span> de données manquantes pour 6 variables : <span class="math inline">\(hh\_ejp\_21, p\_ejp\_22, hh\_ejp\_28, p\_ejp\_29, hh\_ejp\_35 et p\_ejp\_36\)</span>.</p>
 <p>Le code suivant nous a permis d’exclure ces 6 variables de la base de données :</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">DTRawYear &lt;-<span class="st"> </span>DTRawYear[, <span class="op">-</span><span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">28</span>, <span class="dv">29</span>, <span class="dv">35</span>, <span class="dv">36</span>)]</a></code></pre></div>
-<p>Ensuite, quelques variables comme : le <span class="math inline">\(ministre\_client\)</span>, <span class="math inline">\(nom\_du\_site\)</span>, le <span class="math inline">\(rae\)</span> et <span class="math inline">\(electricite\_100\_verte\_oui\_non\_\)</span> ont été retenus en plus des variables quantitatives pour notre jeu de données.</p>
+<p>Ensuite, quelques variables comme : le <span class="math inline">\(ministre\_client\)</span>, <span class="math inline">\(nom\_du\_site\)</span>, le <span class="math inline">\(rae\)</span> et <span class="math inline">\(electricite\_100\_verte\_oui\_non\_\)</span> ont été retenues en plus des variables quantitatives pour notre jeu de données.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">dfRaw &lt;-<span class="st"> </span>DTRawYear[, <span class="kw">c</span>(<span class="st">&quot;ministere_client_&quot;</span>, <span class="st">&quot;nom_du_site&quot;</span>, <span class="st">&quot;rae&quot;</span>, <span class="kw">colnames</span>(DTRawYear)[<span class="dv">16</span><span class="op">:</span><span class="dv">30</span>], <span class="st">&quot;electricite_100_verte_oui_non_&quot;</span>)]</a></code></pre></div>
-<p>Lors de l’importation des données, on observe que la variable <span class="math inline">\(p\_16\)</span> a été lu en tant que qualitative pourtant elle est de nature quantitavive, il convient donc de rectifier cela :</p>
+<p>Lors de l’importation des données, on observe que la variable <span class="math inline">\(p\_16\)</span> a été lue en tant que variable qualitative pourtant elle est de nature quantitavive, il convient donc de rectifier cela :</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">str</span>(dfRaw)</a></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    3597 obs. of  19 variables:
 ##  $ ministere_client_             : Factor w/ 13 levels &quot;Cour des Comptes&quot;,..: 1 9 9 9 9 11 11 11 11 11 ...
@@ -452,7 +452,7 @@ code span.ot { color: #007020; }
 <a class="sourceLine" id="cb13-2" title="2"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&#39;Pourcentage des valeurs manquantes&#39;</span>, <span class="dt">x =</span> <span class="st">&#39;Covaribles&#39;</span>)</a>
 <a class="sourceLine" id="cb13-3" title="3">g1</a></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>La fonction <strong>na.omit()</strong> permet d’exclure tous les éléments en ligne comportant des données manquantes. Nous ne disposons plus que <span class="math inline">\(1108\)</span> observations sur <span class="math inline">\(19\)</span> variables.</p>
+<p>La fonction <strong>na.omit()</strong> permet d’exclure tous les éléments en ligne comportant des données manquantes. Nous disposons plus que <span class="math inline">\(1108\)</span> observations sur <span class="math inline">\(19\)</span> variables.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">dfRaw &lt;-<span class="st"> </span><span class="kw">na.omit</span>(dfRaw)</a>
 <a class="sourceLine" id="cb14-2" title="2"><span class="kw">row.names</span>(dfRaw) &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(dfRaw)</a>
 <a class="sourceLine" id="cb14-3" title="3"><span class="kw">nrow</span>(dfRaw)</a></code></pre></div>
@@ -461,7 +461,7 @@ code span.ot { color: #007020; }
 </div>
 <div id="introduction" class="section level1">
 <h1><strong>Introduction </strong></h1>
-<p>L’étude réalisée dans ce livrable portera sur la base de données <strong>dfRaw</strong>. En effet, cette base associe aux différents points de livraison (Variable “<strong>nom_du_site</strong>”) en 2014 en France, une mesure de la consommation en électricité. En premier lieu, notre objectif est de regrouper par profil de consommation d’électricité ces différents points de livraison. En Second lieu, par analyse identifier les activités exercées dans chacun de ces lieux (data center, lieu administratif, restauration, logement, etc…). Il s’agit ainsi d’une problématique de classification non supervisée ou encore clusthering. Pour cela, une méthode de classification sera mise en avant : La Classification Ascendante Hierarchique (CAH).</p>
+<p>L’étude réalisée dans ce livrable portera sur la base de données <strong>dfRaw</strong>. En effet, cette base associe aux différents points de livraison (Variable “<strong>nom_du_site</strong>”) en 2014 en France, une mesure de la consommation en électricité. En premier lieu, notre objectif est de regrouper par profil de consommation d’électricité ces différents points de livraison disponible. En Second lieu, par analyse identifier les activités exercées dans chacun de ces lieux (data center, lieu administratif, restauration, logement, etc…). Il s’agit ainsi d’une problématique de classification non supervisée ou encore clustering. Pour cela, une méthode de classification sera mise en avant : La Classification Ascendante Hierarchique (CAH).</p>
 </div>
 <div id="description-des-données" class="section level1">
 <h1><strong>Description des données </strong></h1>
@@ -472,7 +472,7 @@ code span.ot { color: #007020; }
 </div>
 <div id="la-classification-ascendante-hierarchique-cah" class="section level1">
 <h1><strong>La Classification Ascendante Hierarchique (CAH) </strong></h1>
-<p>Au regard de la forte corrélation existante entre nos données, il est intérressant d’effectuer bien avant une analyse factorielle avant de proceder au CAH de façon à supprimer l’information liaison des varibles, laquelle est souvent considérer comme du bruit. Puisque nous ne travaillons que sur les variables quantitatives, l’analyse factorielle correspondante considérée est une ACP.</p>
+<p>Au regard de la forte corrélation existante entre nos données, il est intéressant d’effectuer bien avant une analyse factorielle avant de procéder au CAH de façon à supprimer l’information liaison des variables, laquelle est souvent considérée comme du bruit. Puisque nous ne travaillons que sur les variables quantitatives, l’analyse factorielle correspondante considérée est une ACP.</p>
 <p>Avant de construire; l’ACP nous devons choisir de réduire ou non les données. Pour nos données, nous n’avons pas le choix la réduction est indispensable car les variables ont des unités différentes. La réduction permet d’accorder le même importance à chacune des variables dans le calcul de la distance entre individus. Ne pas réduire revient à donner plus d’importance aux variables ayant un grand écart-type. Ici, nous standardisons grâce à la focntion <strong>PCA</strong> qui réduit les données par défaut.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">res.pca &lt;-<span class="st"> </span><span class="kw">PCA</span>(dfRaw, <span class="dt">quali.sup =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>), <span class="dt">graph =</span> F)</a>
 <a class="sourceLine" id="cb17-2" title="2">base &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Var =</span> <span class="kw">paste</span>(<span class="st">&quot;Dim&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(res.pca<span class="op">$</span>eig)), <span class="dt">value =</span> res.pca<span class="op">$</span>eig[,<span class="dv">2</span>])</a>
@@ -491,13 +491,14 @@ code span.ot { color: #007020; }
 ## comp 4  0.3652183               2.434789                          96.63071</code></pre>
 <div id="description-de-la-cah" class="section level2">
 <h2><strong>Description de la CAH </strong></h2>
-<p>La CAH a pour objectif de construire une hierarchie sur les individus et se présente sous forme d’un dendogramme. Cette classification permet de regrouper des individus dans des classes les plus homogènes possibles à partir d’un jeu de données individus <span class="math inline">\(\times\)</span> variables. Cette méthode nécessite de choisr une distance entre individus, ou plus généralement une dissimilarité et un indice d’aggréation entre classes. La distance choisie est la distance euclidienne et l’indice d’aggrégation celui de Ward. l’indice d’aggrégation de Ward est un critère fondé sur l’inertie). Ce qui nous permet d’enchainer ACP et CAH.</p>
-<p>La demarche est implementée dans la fonction <strong>HCPC</strong> du package <strong>FactoMineR</strong> pour les situations où on s’intéresse au criètre de Ward. On effectue ensuite la CAH sur les coordonnées des individus sur les <span class="math inline">\(2\)</span> premiers axes factoriels. L’argument <span class="math inline">\(ncp=2\)</span> de la focntion PCA permet de spécifier le nombre de composantes retenues.</p>
+<p>La CAH a pour objectif de construire une hiérarchie sur les individus et se présente sous forme d’un dendogramme. Cette classification permet de regrouper des individus dans des classes les plus homogènes possibles à partir d’un jeu de données individus <span class="math inline">\(\times\)</span> variables. Cette méthode nécessite de choisr une distance entre individus, ou plus généralement une dissimilarité et un indice d’aggréation entre classes. La distance choisie est la distance euclidienne et l’indice d’aggrégation celui de Ward. l’indice d’aggrégation de Ward est un critère fondé sur l’inertie). Ce qui nous permet d’enchainer ACP et CAH.</p>
+<p>La demarche est implementée dans la fonction <strong>HCPC</strong> du package <strong>FactoMineR</strong> pour les situations où on s’intéresse au criètre de Ward. On effectue ensuite la CAH sur les coordonnées des individus sur les <span class="math inline">\(2\)</span> premiers axes factoriels. L’argument <span class="math inline">\(ncp=2\)</span> de la fonction PCA permet de spécifier le nombre de composantes retenues.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">res.pca &lt;-<span class="st"> </span><span class="kw">PCA</span>(dfRaw, <span class="dt">quali.sup =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>), <span class="dt">ncp =</span> <span class="dv">2</span>, <span class="dt">graph =</span> F)</a>
 <a class="sourceLine" id="cb20-2" title="2">res.hcpc &lt;-<span class="st"> </span><span class="kw">HCPC</span>(res.pca, <span class="dt">consol =</span> <span class="ot">FALSE</span>, <span class="dt">graph =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 <div id="résultats-obtenus" class="section level2">
 <h2><strong>Résultats obtenus </strong></h2>
+<p>Le dendrogramme permet de visualiser les regroupements successifs jusqu’à obtenir un unique cluster. Il est souvent pertinent de choisir le partitionnement correspondant au plus grand saut entre deux clusters consécutifs. Dans la sortie ci-dessous, il y a 6 lignes verticales traversées par la coupe, on en déduit que le nombre de clusters optimal est de 6. Ainsi, nous établissons six profils de consommateurs d’électricité.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">fviz_dend</span>(res.hcpc,</a>
 <a class="sourceLine" id="cb21-2" title="2">          <span class="dt">cex =</span> <span class="fl">0.7</span>,                     <span class="co"># Label size</span></a>
 <a class="sourceLine" id="cb21-3" title="3">          <span class="dt">palette =</span> <span class="st">&quot;jco&quot;</span>,               <span class="co"># Color palette see </span></a>
@@ -1032,7 +1033,8 @@ OUI
 ## hpe_19  9.037105e-82
 ## hce_20  2.244951e-81</code></pre>
 <p>D’après les résultats ci-dessus, on peut voir que :</p>
-<p>les variables <span class="math inline">\(hcpe\_33\)</span>, Meurtre, Viol et Agression sont associées de façon plus significative au cluster 1. Par exemple, la valeur moyenne de la variable <span class="math inline">\(hcpe\_33\)</span> dans la cluster <span class="math inline">\(1\)</span> est de <span class="math inline">\(49413.79 kwh\)</span>, ce qui est inférieur à sa moyenne générale (<span class="math inline">\(220042.03 kwh\)</span>) pour toutes les clusters. Par conséquent, on peut conclure que la cluster <span class="math inline">\(1\)</span> est caractérisée par une faible consommation anuelle d’électricité par rapport à toutes les clusters.</p>
+<p>Les variables <span class="math inline">\(hcpe\_33\)</span>, <span class="math inline">\(p\_33\)</span>, Viol et Agression sont associées de façon plus significative au cluster 1. Par exemple, la valeur moyenne de la variable <span class="math inline">\(hcpe\_33\)</span> dans la cluster <span class="math inline">\(1\)</span> est de <span class="math inline">\(49413.79\)</span> kwh, ce qui est inférieur à sa moyenne générale (<span class="math inline">\(220042.03\)</span> kwh) pour tous les clusters. Par conséquent, on peut conclure que la cluster <span class="math inline">\(1\)</span> est caractérisée par une faible consommation anuelle d’électricité par rapport à tous les clusters.</p>
+<p>Les variables <span class="math inline">\(P\_16\)</span>, Viol et Agression sont associées de façon plus significative au cluster 2. Par exemple, la valeur moyenne de la variable <span class="math inline">\(P\_16\)</span> dans la cluster <span class="math inline">\(1\)</span> est de <span class="math inline">\(39.67\)</span> kwh, ce qui est inférieur à sa moyenne générale (<span class="math inline">\(152.58\)</span> kwh) pour tous les clusters. Par conséquent, on peut conclure que la cluster <span class="math inline">\(2\)</span> est caractérisée par une faible consommation anuelle d’électricité par rapport à tous les clusters.</p>
 <ul>
 <li>De même, pour afficher les dimensions principales qui sont les plus associées aux clusters :</li>
 </ul>
@@ -1108,14 +1110,11 @@ OUI
 ## Cluster: 6
 ##        71        34        30       548        41 
 ## 0.4168264 0.7128604 0.7855966 1.7919544 2.8267193</code></pre>
-<p>Pour chaque cluster, nous observons les <span class="math inline">\(5\)</span> individus les plus proches du centre du cluster qui sont affichés. La distance entre chaque individu et le centre du cluster est indiquée. Par exemple, les individus représentatifs du cluster <span class="math inline">\(1\)</span> sont :</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span>)), <span class="dv">3</span>]</a></code></pre></div>
-<pre><code>## [1] 30001710276049 30002150285804 30002130307291 30001210261045 30001210311886
-## 3583 Levels: 05148190999189\n 107865 108726 122 148819 157275 157946 ... TV/68066/000130</code></pre>
+<p>Pour chaque cluster, nous observons les <span class="math inline">\(5\)</span> individus les plus proches du centre du cluster qui sont affichés. La distance entre chaque individu et le centre du cluster est indiquée. Par exemple, les individus représentatifs de chaque cluster sont :</p>
 <ul>
 <li>Cluster 1 : les 5 points de livraison (variable <strong>nom_du_site</strong>)</li>
 </ul>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">1</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1226,7 +1225,7 @@ NON
 <ul>
 <li>Cluster 2 : les 5 points de livraison (variable <strong>nom_du_site</strong>)</li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">2</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">2</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1337,7 +1336,7 @@ OUI
 <ul>
 <li>Cluster 3 : les 5 points de livraison (variable <strong>nom_du_site</strong>)</li>
 </ul>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">3</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">3</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1448,7 +1447,7 @@ NON
 <ul>
 <li>Cluster 4 : les 5 points de livraison (variable <strong>nom_du_site</strong>)</li>
 </ul>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">4</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">4</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1559,7 +1558,7 @@ OUI
 <ul>
 <li>Cluster 5 : les 5 points de livraison (variable <strong>nom_du_site</strong>)</li>
 </ul>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">5</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">5</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1670,7 +1669,7 @@ NON
 <ul>
 <li>Cluster 6 : les 5 points de livraison (variable <strong>nom_du_site</strong>)</li>
 </ul>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">6</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">dfRaw[<span class="kw">as.integer</span>(<span class="kw">names</span>(res.hcpc<span class="op">$</span>desc.ind<span class="op">$</span>para<span class="op">$</span><span class="st">`</span><span class="dt">6</span><span class="st">`</span>)), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">19</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</a></code></pre></div>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1780,63 +1779,8 @@ OUI
 </table>
 <p>Nous arrivons donc à mettre en évidence les profils de consommations correspondant aux points de livraisons disponibles suivantes :</p>
 <ul>
-<li>Serie temporelle :</li>
+<li>Series temporelles :</li>
 </ul>
-<p>Les activités exercées dans chacun de ces lieux</p>
-<table>
-<thead>
-<tr class="header">
-<th align="center">Profil1</th>
-<th align="center">Profil2</th>
-<th align="center">Profil3</th>
-<th align="center">Profil4</th>
-<th align="center">Profil5</th>
-<th align="center">Profil6</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">OLS</td>
-<td align="center">0.2218</td>
-<td align="center">OLS</td>
-<td align="center">0.2218</td>
-<td align="center">OLS</td>
-<td align="center">0.2218</td>
-</tr>
-<tr class="even">
-<td align="center">Splines</td>
-<td align="center">0.2222</td>
-<td align="center">OLS</td>
-<td align="center">0.2218</td>
-<td align="center">OLS</td>
-<td align="center">0.2218</td>
-</tr>
-<tr class="odd">
-<td align="center">Bagging</td>
-<td align="center">0.26</td>
-<td align="center">OLS</td>
-<td align="center">0.2218</td>
-<td align="center">OLS</td>
-<td align="center">0.2218</td>
-</tr>
-<tr class="even">
-<td align="center">RandomForest</td>
-<td align="center">0.23</td>
-<td align="center">OLS</td>
-<td align="center">0.2218</td>
-<td align="center">OLS</td>
-<td align="center">0.2218</td>
-</tr>
-<tr class="odd">
-<td align="center">Boosting</td>
-<td align="center">0.2220</td>
-<td align="center">OLS</td>
-<td align="center">0.2218</td>
-<td align="center">0.22</td>
-<td align="center">0.2218</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </section>
